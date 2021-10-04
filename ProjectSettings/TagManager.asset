@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Gate
+  - Spinner
+  - Block
+  - CameraPosition1
   layers:
   - Default
   - TransparentFX
