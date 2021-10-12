@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Little Island 2.unity
     guid: d237a0a0b7da4b24d89f6545cb3fb2b5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/The Dock.unity
     guid: 4db0488dc1688b248b68988410b2a302
+  - enabled: 1
+    path: Assets/Scenes/Little Island Exploration.unity
+    guid: 799525b3776a4de4a8cdf4477803a3f7
   m_configObjects: {}
