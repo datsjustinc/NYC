@@ -9,6 +9,8 @@ TagManager:
   - Spinner
   - Block
   - CameraPosition1
+  - Spawn
+  - Coin
   layers:
   - Default
   - TransparentFX
