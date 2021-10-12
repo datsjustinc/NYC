@@ -11,6 +11,8 @@ TagManager:
   - CameraPosition1
   - Spawn
   - Coin
+  - Boat
+  - Arrival
   layers:
   - Default
   - TransparentFX

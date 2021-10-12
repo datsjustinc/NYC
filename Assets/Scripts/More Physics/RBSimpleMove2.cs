@@ -13,6 +13,8 @@ public class RBSimpleMove2 : MonoBehaviour
     float moveX = 1.0f; // create value to store object's move direction
 
     public Animator animator;
+
+    public bool control; // determine whether player can move or boat can move
     
     //public Rigidbody2D candy;
     //public Rigidbody2D otherCandy;
@@ -21,6 +23,7 @@ public class RBSimpleMove2 : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); // get rigid body component of object
         //candy = otherCandy.GetComponent<Rigidbody2D>();
+        control = true;
     }
 
     void PlayerControls()
@@ -52,13 +55,29 @@ public class RBSimpleMove2 : MonoBehaviour
         {
             isGrounded = true; // set ground variable to true
             animator.SetBool("Jump", false); // stop object's jump animation
+
+            if (collision.gameObject.GetComponent<BoatComponent>()) // if collision with JumpComponent script attached to ground object
+            {
+                control = false;
+            }
         }
-    
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision) 
+    {
+        if (collision.gameObject.GetComponent<JumpComponent>()) // if collision with JumpComponent script attached to ground object
+            {
+                control = true;
+            }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y); // update object movement speed/direction
+        if (control)
+        {
+            rb.velocity = new Vector2(moveX * moveSpeed, rb.velocity.y); // update object movement speed/direction
+        }
 
         animator.SetFloat("Speed", Mathf.Abs(moveX * moveSpeed)); // trigger object's run animation
 
@@ -69,13 +88,18 @@ public class RBSimpleMove2 : MonoBehaviour
         } 
     }
 
-
-
-
-
     // Update is called once per frame
     void Update()
     {
-        PlayerControls(); // call player control function to run and detect movement always
+        if (control)
+        {
+            PlayerControls(); // call player control function to run and detect movement always
+            GetComponent<Rigidbody2D>().mass = 1; // disable coin's sprite renderer component
+        }
+
+        else if (!control)
+        {
+            GetComponent<Rigidbody2D>().mass = 0; // disable coin's sprite renderer component
+        }
     }
 }

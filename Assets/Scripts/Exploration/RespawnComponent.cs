@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeactivateText : MonoBehaviour
+public class RespawnComponent : MonoBehaviour
 {
-
-    void Awake()
+    void start()
     {
-        GetComponent<SpriteRenderer>().enabled = false; // disable coin's sprite renderer component
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
