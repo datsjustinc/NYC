@@ -14,7 +14,7 @@ public class CameraDeadZone : MonoBehaviour
   void Update()
   {
     difference = Vector3.Distance (transform.position, player.transform.position);
-    Debug.Log(difference);
+    //Debug.Log(difference);
   }
   private void FixedUpdate()
   {

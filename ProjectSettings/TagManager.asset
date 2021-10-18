@@ -13,6 +13,7 @@ TagManager:
   - Coin
   - Boat
   - Arrival
+  - ClickButton
   layers:
   - Default
   - TransparentFX
