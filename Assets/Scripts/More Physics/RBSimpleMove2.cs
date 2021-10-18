@@ -15,6 +15,8 @@ public class RBSimpleMove2 : MonoBehaviour
     public Animator animator;
     public Joint2D joint; // create value to store joint component
 
+    public SpriteRenderer flip; // create field variable for object's sprite renderer component
+
     bool onBoat; // create variable to detect if player is on the boat object
 
     public bool control; // determine whether player can move or boat can move
@@ -28,6 +30,7 @@ public class RBSimpleMove2 : MonoBehaviour
         //candy = otherCandy.GetComponent<Rigidbody2D>();
         control = true; // player starts with control of movement first intialize
         onBoat = false; // player is not on boat intialize
+        flip = GetComponent<SpriteRenderer>(); // Get sprite renderer component of object
     }
 
     void PlayerControls()
@@ -52,6 +55,16 @@ public class RBSimpleMove2 : MonoBehaviour
 
         moveX = Input.GetAxis("Horizontal"); // get movement input direction (-1, 1)
         //MOVEX = Input.GetAxis("Horizontal");
+
+        if (moveX < 0) // if movement in negative direction
+        {
+            flip.flipX = true; // flip sprite to left direction
+        }
+
+        else if (moveX > 0) // if movement in positive direction
+        {
+            flip.flipX = false; // flip sprite to right direction
+        }
         
     } 
     void Jump()

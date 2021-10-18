@@ -13,6 +13,8 @@ public class PlayerScore : MonoBehaviour
     public void Awake() // function called before game starts
     {
         displayScore = GetComponent<TMP_Text>(); // get text component and store in display score
+
+        pt = 0; // set player score to 0
     }
 
     // Update is called once per frame

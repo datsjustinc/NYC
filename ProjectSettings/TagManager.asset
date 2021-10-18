@@ -14,6 +14,9 @@ TagManager:
   - Boat
   - Arrival
   - ClickButton
+  - SceneChange
+  - Dialogue
+  - Lever
   layers:
   - Default
   - TransparentFX

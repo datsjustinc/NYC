@@ -7,7 +7,7 @@ public class DeactivateKey : MonoBehaviour
     public bool once; // variable used later to enable objects inspector component once
     public bool collected; // variable used later to detect whether player has collected this object
 
-    public PlayerScore value; // create value to reference another script
+    public DialogueBox value; // create value to reference another script
     AudioSource ring; // create new audio source variable
     
     void Awake()
@@ -15,7 +15,7 @@ public class DeactivateKey : MonoBehaviour
         GetComponent<BoxCollider2D>().enabled = false; // disable coin's collider component
         GetComponent<SpriteRenderer>().enabled = false; // disable coin's sprite renderer component
 
-        value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
+        value = GameObject.Find("Dialogue").GetComponent<DialogueBox>(); // find object that script is in and get the script
         once = true;
         collected = false;
 
@@ -35,7 +35,7 @@ public class DeactivateKey : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (value.pt == 11 && once) // if the variable in that script meets a condition
+        if (value.puzzle == true && once) // if the variable in that script meets a condition
         {
             GetComponent<BoxCollider2D>().enabled = true; // disable coin's collider component
             GetComponent<SpriteRenderer>().enabled = true; // disable coin's sprite renderer component

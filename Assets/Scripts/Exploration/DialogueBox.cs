@@ -9,6 +9,10 @@ public class DialogueBox : MonoBehaviour
     public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour} // store objects of type Stages
     public Stages myStage = Stages.messageOne; 
 
+    public bool goalComplete; // used to bring down barrier after completing goal
+    public bool puzzle; // used to initiate puzzle 1 on land
+    public bool teleport; // used to move npc to another location
+
     [SerializeField]
 
     public TMP_Text dialogue; // create dialogue field variable
@@ -26,6 +30,9 @@ public class DialogueBox : MonoBehaviour
         introduction = true;
         once = false;
         sign = false;
+        puzzle = false;
+        goalComplete = false;
+        teleport = false;
         dialogue = GetComponent<TMP_Text>();
         value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
         collect = GameObject.Find("Key").GetComponent<DeactivateKey>(); // find object that script is in and get the script
@@ -39,24 +46,24 @@ public class DialogueBox : MonoBehaviour
         {
             case Stages.messageZero:
                 pop.Play(); // play audio source
-                dialogue.text = "\nPress 'e'!";
+                dialogue.text = "\nHi there!";
                 myStage = Stages.messageOne;
                 break;
             case Stages.messageOne:
                 pop.Play(); // play audio source
-                dialogue.text = "Find all the coins!";
+                dialogue.text = "Find me a coin!";
                 //myStage = Stages.messageTwo;
                 break;
 
             case Stages.messageTwo:
                 pop.Play(); // play audio source
-                dialogue.text = "I lost a key here!";
+                dialogue.text = "There's a key here somewhere..";
                 //myStage = Stages.messageThree;
                 break;
 
             case Stages.messageThree:
                 pop.Play(); // play audio source
-                dialogue.text = "Find my boat!";
+                dialogue.text = "Thanks! Meet me at the Docks.";
                 once = true; // set variable false so the message wont be the same all the time after key collected
                 //myStage = Stages.messageFour;
                 break;
@@ -64,6 +71,7 @@ public class DialogueBox : MonoBehaviour
                 pop.Play(); // play audio source
                 dialogue.text = "Take a leap!";
                 sign = true;
+                teleport = true;
                 //myStage = Stages.messageFour;
                 break;
         }
@@ -90,14 +98,20 @@ public class DialogueBox : MonoBehaviour
             EnumChange(); // run method with switch case
         }
 
-        if (value.pt == 11) // if the variable in that script meets a condition
+        if (value.pt == 1) // if the variable in that script meets a condition
         {
             myStage = Stages.messageTwo; // change message
+
+            if (Input.GetKeyDown(KeyCode.E)) // if key condition pressed
+            {
+                puzzle = true; // allow puzzle to appear
+            }
         }
 
         if (collect.collected == true) // if the variable in that script meets a condition
         {
             myStage = Stages.messageThree; // change message
+            goalComplete = true; // set variable to true which will allow barrier to be disabled
         }
         
         if (once) // if the variable in that script meets a condition

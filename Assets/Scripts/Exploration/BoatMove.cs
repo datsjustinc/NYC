@@ -6,7 +6,7 @@ public class BoatMove : MonoBehaviour
     public Rigidbody2D rb; // create field variable for object's rigid body component
     public float moveSpeed = 5.0f; // create and intialize object's move value
     float moveX = 1.0f; // create value to store object's move direction
-
+    public Lever value; // create value to reference another script
     public RBSimpleMove2 player; // create value to reference another script
     
     //public Rigidbody2D candy;
@@ -14,10 +14,14 @@ public class BoatMove : MonoBehaviour
 
     private void Awake()
     {
+        GetComponent<BoxCollider2D>().enabled = false; // disable boat's collider component
+
         rb = GetComponent<Rigidbody2D>(); // get rigid body component of object
         //candy = otherCandy.GetComponent<Rigidbody2D>();
 
         player = GameObject.Find("Player").GetComponent<RBSimpleMove2>(); // find object that script is in and get the script
+
+        value = GameObject.Find("Lever").GetComponent<Lever>(); // find object that script is in and get the script
     }
 
     void PlayerControls()
@@ -49,5 +53,11 @@ public class BoatMove : MonoBehaviour
         {
             PlayerControls(); // call player control function to run and detect movement always
         }
+
+        if (value.on == true)
+        {
+            GetComponent<BoxCollider2D>().enabled = true; // disable boat's collider component
+        }
+
     }
 }

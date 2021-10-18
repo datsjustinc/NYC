@@ -15,7 +15,7 @@ public class ScoreUpdate : MonoBehaviour
       
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)  // if collision detect with coin
+    private void OnTriggerEnter2D(Collider2D collision)  // if collision detect with coin
     {
         coin.Play(); // play audio source
         GetComponent<Collider2D>().enabled = false; // disable coin's collider component
