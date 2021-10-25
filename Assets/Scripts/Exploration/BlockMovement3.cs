@@ -9,8 +9,8 @@ public class BlockMovement3 : MonoBehaviour
  
     void Start() 
     {
-        minimum = 6.85f; // set lowest position to object y value
-        maximum = 8.85f; // set highest position to object y value plus the distance to move
+        minimum = transform.position.x - 1; // set lowest position to object y value
+        maximum = transform.position.x + 1; // set highest position to object y value plus the distance to move
     }
    
     // Update is called once per frame
