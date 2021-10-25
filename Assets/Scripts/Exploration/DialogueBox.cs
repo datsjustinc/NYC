@@ -6,7 +6,7 @@ using TMPro;
 public class DialogueBox : MonoBehaviour
 {
 
-    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour, messageFive, messageSix, messageSeven, messageEight, messageNine, messageTen, messageEleven, messageTwelve, messageThirteen} // store objects of type Stages
+    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour, messageFive, messageSix, messageSeven, messageEight, messageNine, messageTen, messageEleven, messageTwelve, messageThirteen, messageFourteen} // store objects of type Stages
     public Stages myStage = Stages.messageOne; 
 
     public bool goalComplete; // used to bring down barrier after completing goal
@@ -104,14 +104,21 @@ public class DialogueBox : MonoBehaviour
                 myStage = Stages.messageTwelve;
                 break;
             case Stages.messageTwelve:
+                Debug.Log("Stage12");
                 pop.Play(); // play audio source
                 dialogue.text = "";
                 sign = true;
                 teleport = true;
+                goalComplete = true; // set variable to true which will allow barrier to be disabled
                 transform.position = new Vector3(-20.33f, -2.63f, -2.2319f);
                 myStage = Stages.messageThirteen;
                 break;
             case Stages.messageThirteen:
+                pop.Play(); // play audio source
+                dialogue.text = "Use the key on lever.";
+                myStage = Stages.messageFourteen;
+                break;
+            case Stages.messageFourteen:
                 pop.Play(); // play audio source
                 dialogue.text = "Take the boat across.";
                 break;
@@ -121,15 +128,15 @@ public class DialogueBox : MonoBehaviour
         //dialogue.text += " " + counter.ToString();
     }
 
-    public void OnCollisionEnter2D(Collision2D collision) 
+    public void OnTriggerEnter2D(Collider2D collision) // method used to progress dialogue interaction only if player is touching npc
     { 
         touching = true; 
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    public void OnTriggerExit2D(Collider2D collision) // method used to stop dialogue interaction if player is away from npc
     {
         touching = false;
-        dialogue.text = "";
+        dialogue.text = ""; // createa empty dialogue
     }
 
     // Update is called once per frame
@@ -140,20 +147,20 @@ public class DialogueBox : MonoBehaviour
             EnumChange(); // run method with switch case
         }
 
-        if (value.pt == 3 || Input.GetKeyDown(KeyCode.O)) // if the variable in that script meets a condition
+        if (value.pt == 3) // if the variable in that script meets a condition
         {
-            if ((Input.GetKeyDown(KeyCode.E) && touching == true) || Input.GetKeyDown(KeyCode.O)) // if key condition pressed
+            myStage = Stages.messageEight; // change message
+            if ((Input.GetKeyDown(KeyCode.E) && touching == true)) // if key condition pressed
             {
-                myStage = Stages.messageEight; // change message
                 value.reset = true;
                 puzzle = true; // allow puzzle to appear
             }
         }
 
-        if (collect.collected == true || Input.GetKeyDown(KeyCode.P)) // if the variable in that script meets a condition
+        if (collect.collected == true) // if the variable in that script meets a condition
         {
             myStage = Stages.messageEleven; // change message
-            goalComplete = true; // set variable to true which will allow barrier to be disabled
+            collect.collected = false; // set it back to false so the message does keep reiterating on messageEleven
         }
 
     }

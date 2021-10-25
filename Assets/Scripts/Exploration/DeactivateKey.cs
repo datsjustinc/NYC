@@ -22,7 +22,7 @@ public class DeactivateKey : MonoBehaviour
         ring = GetComponent<AudioSource>(); // get audio source component from object's inspector
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)  // if collision detect with coin
     {
         ring.Play();
         

@@ -15,4 +15,12 @@ public class SceneChanger : MonoBehaviour
             SceneManager.LoadScene(nextScene); // load next scene
         }
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            SceneManager.LoadScene(nextScene); // load next scene
+        }
+    }
 }

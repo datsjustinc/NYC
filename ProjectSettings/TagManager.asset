@@ -18,6 +18,10 @@ TagManager:
   - Dialogue
   - Lever
   - NPC
+  - Saw
+  - Key
+  - Enemy
+  - Mountain
   layers:
   - Default
   - TransparentFX

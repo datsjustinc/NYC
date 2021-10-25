@@ -19,7 +19,7 @@ public class NpcTeleport : MonoBehaviour
     {
         if (value.teleport == true) // if variable is true after player collects key and talks to npc
         {
-            location.transform.position = new Vector3 (-21.13f, -4.37f, -2.2319f); // change npc location to new dock
+            location.transform.position = new Vector3 (-21f, -4.37f, -2.2319f); // change npc location to new dock
             flip.flipX = true; // flip direction of npc sprite
         }
     }

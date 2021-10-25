@@ -59,5 +59,10 @@ public class BoatMove : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = true; // disable boat's collider component
         }
 
+        if (value.on == false)
+        {
+            GetComponent<BoxCollider2D>().enabled = false; // disable boat's collider component
+        }
+
     }
 }

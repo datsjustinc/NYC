@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Respawn : MonoBehaviour
     public GameObject spawn; // create field variable to store game object
 
     public GameObject boat; // create field variable to store game object
+    //public string scene; // create field variable to store scene name
 
     private void Awake() // use to initialize variables / game state before game starts
     { 
@@ -22,6 +24,7 @@ public class Respawn : MonoBehaviour
         {
             transform.position = new Vector3(spawn.transform.position.x, spawn.transform.position.y + 1, spawn.transform.position.z); // set current object position to new spawn object position
             boat.transform.position = new Vector3(-14.783f, -5.75f, 0); // set new position for boat respawn
+            //SceneManager.LoadScene(scene);
         }
         
     }
