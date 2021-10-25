@@ -8,7 +8,6 @@ public class LeverClick : MonoBehaviour
 
     private void Awake()
     {
-        green = new Color(63f, 188f, 79f, 255f);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

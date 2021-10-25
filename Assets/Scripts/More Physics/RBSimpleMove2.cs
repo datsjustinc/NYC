@@ -17,6 +17,8 @@ public class RBSimpleMove2 : MonoBehaviour
 
     public SpriteRenderer flip; // create field variable for object's sprite renderer component
 
+    public TrailRenderer trail; // create field variable for object's sprite renderer component
+
     bool onBoat; // create variable to detect if player is on the boat object
 
     public bool control; // determine whether player can move or boat can move
@@ -31,6 +33,8 @@ public class RBSimpleMove2 : MonoBehaviour
         control = true; // player starts with control of movement first intialize
         onBoat = false; // player is not on boat intialize
         flip = GetComponent<SpriteRenderer>(); // Get sprite renderer component of object
+        trail = GetComponent<TrailRenderer>(); // get trail renderer component of object
+        trail.emitting = false; // set property of trail renderer component to false
     }
 
     void PlayerControls()
@@ -45,12 +49,16 @@ public class RBSimpleMove2 : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift)) // if button pressed
         {
+            animator.speed = 1.5f; // speed up animation frames when sprinting
             moveSpeed = 3.5f; // player speed increases (sprint)
+            trail.emitting = true; // set property of trail renderer component to false
         }
 
         else
         {
+            animator.speed = 1; // default animation frame speed
             moveSpeed = 2.5f; // else goes back to regular speed
+            trail.emitting = false; // set property of trail renderer component to false
         }
 
         moveX = Input.GetAxis("Horizontal"); // get movement input direction (-1, 1)

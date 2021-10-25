@@ -6,19 +6,15 @@ using TMPro;
 public class DialogueBox : MonoBehaviour
 {
 
-    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour} // store objects of type Stages
+    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour, messageFive, messageSix, messageSeven, messageEight, messageNine, messageTen} // store objects of type Stages
     public Stages myStage = Stages.messageOne; 
 
     public bool goalComplete; // used to bring down barrier after completing goal
     public bool puzzle; // used to initiate puzzle 1 on land
     public bool teleport; // used to move npc to another location
-
-    [SerializeField]
-
     public TMP_Text dialogue; // create dialogue field variable
-    public bool introduction; // variable used later to display messageZero, restrict collision message to messageZero
-    public bool once; // variable used to later display messageThree only once, so it can switch to messageFour
     public bool sign; // variable used later outside of script for last sprite/puzzle to trigger
+    public bool touching; // check to see if player is touching npc before dialogue appears
     public PlayerScore value; // create value to reference another script
     public DeactivateKey collect; // create value to reference another script
     AudioSource pop; // create new audio source variable
@@ -27,12 +23,11 @@ public class DialogueBox : MonoBehaviour
 
     private void Awake()
     {
-        introduction = true;
-        once = false;
         sign = false;
         puzzle = false;
         goalComplete = false;
         teleport = false;
+        touching = false;
         dialogue = GetComponent<TMP_Text>();
         value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
         collect = GameObject.Find("Key").GetComponent<DeactivateKey>(); // find object that script is in and get the script
@@ -46,33 +41,60 @@ public class DialogueBox : MonoBehaviour
         {
             case Stages.messageZero:
                 pop.Play(); // play audio source
-                dialogue.text = "\nHi there!";
+                dialogue.text = "Hi there!";
                 myStage = Stages.messageOne;
                 break;
             case Stages.messageOne:
                 pop.Play(); // play audio source
-                dialogue.text = "Find me a coin!";
-                //myStage = Stages.messageTwo;
+                dialogue.text = "Welcome to the uncharted Isles of Oleas.";
+                myStage = Stages.messageTwo;
                 break;
-
             case Stages.messageTwo:
                 pop.Play(); // play audio source
-                dialogue.text = "There's a key here somewhere..";
-                //myStage = Stages.messageThree;
+                dialogue.text = "You've been stranded here.";
+                myStage = Stages.messageThree;
                 break;
-
             case Stages.messageThree:
                 pop.Play(); // play audio source
-                dialogue.text = "Thanks! Meet me at the Docks.";
-                once = true; // set variable false so the message wont be the same all the time after key collected
-                //myStage = Stages.messageFour;
+                dialogue.text = "In order to escape, you must completely explore the land.";
+                myStage = Stages.messageFour;
                 break;
             case Stages.messageFour:
                 pop.Play(); // play audio source
-                dialogue.text = "Take a leap!";
+                dialogue.text = "I've been assigned as your tour guide!";
+                myStage = Stages.messageFive;
+                break;
+            case Stages.messageFive:
+                pop.Play(); // play audio source
+                dialogue.text = "Somewhere on this island are 3 gold coins.";
+                myStage = Stages.messageSix;
+                break;
+            case Stages.messageSix:
+                pop.Play(); // play audio source
+                dialogue.text = "Find it and bring it to me.";
+                //myStage = Stages.messageTwo;
+                break;
+            case Stages.messageSeven:
+                pop.Play(); // play audio source
+                dialogue.text = "I'll take that as payment, thanks!";
+                myStage = Stages.messageEight;
+                break;
+            case Stages.messageEight:
+                pop.Play(); // play audio source
+                dialogue.text = "Now there's a key somewhere here.";
+                myStage = Stages.messageNine;
+                break;
+            case Stages.messageNine:
+                pop.Play(); // play audio source
+                dialogue.text = "Find it and return to me.";
+                //myStage = Stages.messageThree;
+                break;
+            case Stages.messageTen:
+                pop.Play(); // play audio source
+                dialogue.text = "Meet me at the Docks.";
+                //myStage = Stages.messageFour;
                 sign = true;
                 teleport = true;
-                //myStage = Stages.messageFour;
                 break;
         }
 
@@ -82,42 +104,38 @@ public class DialogueBox : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision) 
     { 
-        if (introduction) // if object(NPC) has not been introduced to player
-        {
-            EnumChange(); // run method and display first message
-            introduction = false; // turn boolean off so that only first string will be collision triggered and not the other ones
-        }
-       
+        touching = true; 
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        touching = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // if key condition pressed
+        if (Input.GetKeyDown(KeyCode.E) && touching == true) // if key condition pressed
         {
             EnumChange(); // run method with switch case
         }
 
-        if (value.pt == 1) // if the variable in that script meets a condition
+        if (value.pt == 3) // if the variable in that script meets a condition
         {
-            myStage = Stages.messageTwo; // change message
-
-            if (Input.GetKeyDown(KeyCode.E)) // if key condition pressed
+            if (Input.GetKeyDown(KeyCode.E) && touching == true) // if key condition pressed
             {
+                myStage = Stages.messageSeven; // change message
+                value.reset = true;
                 puzzle = true; // allow puzzle to appear
             }
         }
 
         if (collect.collected == true) // if the variable in that script meets a condition
         {
-            myStage = Stages.messageThree; // change message
+            myStage = Stages.messageTen; // change message
             goalComplete = true; // set variable to true which will allow barrier to be disabled
         }
         
-        if (once) // if the variable in that script meets a condition
-        {
-            myStage = Stages.messageFour; // change message
-        }
     }
 }
 

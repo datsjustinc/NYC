@@ -21,11 +21,10 @@ public class Lever : MonoBehaviour
             // after left click, a ray will shoot out
             RaycastHit2D ray = Physics2D.GetRayIntersection(mainCamera.ScreenPointToRay(Input.mousePosition));
 
-            if (ray.collider != null && ray.collider.CompareTag("ClickButton"))
+            if (ray.collider != null && ray.collider.CompareTag("Lever"))
             {
                 on = true; // set button click to true
                 ray.collider.GetComponent<LeverClick>().SelectButton(0);
-                Debug.Log("Clicked!");
             }
 
         }

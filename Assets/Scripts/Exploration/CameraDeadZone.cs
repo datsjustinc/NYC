@@ -29,10 +29,14 @@ public class CameraDeadZone : MonoBehaviour
 
       Vector3 transitionPosition = Vector3.Lerp(transform.position, boundPosition, transitionFactor*Time.fixedDeltaTime); // create and store camera's new smooth transition position from current positions to new bound positions using lerp
       
+      transform.position = transitionPosition; // update camera's position to new smooth lerp position
+      
+      /*
       if (difference > 10.02)
       {
         transform.position = transitionPosition; // update camera's position to new smooth lerp position
       }
+      */
   }
 
 }
