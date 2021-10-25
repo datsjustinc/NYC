@@ -6,7 +6,7 @@ using TMPro;
 public class DialogueBox : MonoBehaviour
 {
 
-    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour, messageFive, messageSix, messageSeven, messageEight, messageNine, messageTen} // store objects of type Stages
+    public enum Stages {messageZero, messageOne, messageTwo, messageThree, messageFour, messageFive, messageSix, messageSeven, messageEight, messageNine, messageTen, messageEleven, messageTwelve, messageThirteen} // store objects of type Stages
     public Stages myStage = Stages.messageOne; 
 
     public bool goalComplete; // used to bring down barrier after completing goal
@@ -18,6 +18,9 @@ public class DialogueBox : MonoBehaviour
     public PlayerScore value; // create value to reference another script
     public DeactivateKey collect; // create value to reference another script
     AudioSource pop; // create new audio source variable
+    //public GameObject npc; // create field variable to store game object
+
+
 
     //public int counter = 0;
 
@@ -32,6 +35,7 @@ public class DialogueBox : MonoBehaviour
         value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
         collect = GameObject.Find("Key").GetComponent<DeactivateKey>(); // find object that script is in and get the script
         pop = GetComponent<AudioSource>(); // get audio source component from object's inspector
+        //npc = GameObject.FindWithTag("NPC"); // find object with specified tag and store in variable
     }
 
     void EnumChange()
@@ -72,29 +76,44 @@ public class DialogueBox : MonoBehaviour
             case Stages.messageSix:
                 pop.Play(); // play audio source
                 dialogue.text = "Find it and bring it to me.";
-                //myStage = Stages.messageTwo;
+                myStage = Stages.messageSeven;
                 break;
             case Stages.messageSeven:
                 pop.Play(); // play audio source
-                dialogue.text = "I'll take that as payment, thanks!";
-                myStage = Stages.messageEight;
+                dialogue.text = "Hint: Run towards a ledge and spam jump.";
+                //myStage = Stages.messageTwo;
                 break;
             case Stages.messageEight:
                 pop.Play(); // play audio source
-                dialogue.text = "Now there's a key somewhere here.";
+                dialogue.text = "I'll take that as payment, thanks!";
                 myStage = Stages.messageNine;
                 break;
             case Stages.messageNine:
                 pop.Play(); // play audio source
-                dialogue.text = "Find it and return to me.";
-                //myStage = Stages.messageThree;
+                dialogue.text = "Now there's a key somewhere here.";
+                myStage = Stages.messageTen;
                 break;
             case Stages.messageTen:
                 pop.Play(); // play audio source
+                dialogue.text = "Find it and return to me.";
+                //myStage = Stages.messageThree;
+                break;
+            case Stages.messageEleven:
+                pop.Play(); // play audio source
                 dialogue.text = "Meet me at the Docks.";
-                //myStage = Stages.messageFour;
+                myStage = Stages.messageTwelve;
+                break;
+            case Stages.messageTwelve:
+                pop.Play(); // play audio source
+                dialogue.text = "";
                 sign = true;
                 teleport = true;
+                transform.position = new Vector3(-20.33f, -2.63f, -2.2319f);
+                myStage = Stages.messageThirteen;
+                break;
+            case Stages.messageThirteen:
+                pop.Play(); // play audio source
+                dialogue.text = "Take the boat across.";
                 break;
         }
 
@@ -110,6 +129,7 @@ public class DialogueBox : MonoBehaviour
     public void OnCollisionExit2D(Collision2D collision)
     {
         touching = false;
+        dialogue.text = "";
     }
 
     // Update is called once per frame
@@ -120,22 +140,22 @@ public class DialogueBox : MonoBehaviour
             EnumChange(); // run method with switch case
         }
 
-        if (value.pt == 3) // if the variable in that script meets a condition
+        if (value.pt == 3 || Input.GetKeyDown(KeyCode.O)) // if the variable in that script meets a condition
         {
-            if (Input.GetKeyDown(KeyCode.E) && touching == true) // if key condition pressed
+            if ((Input.GetKeyDown(KeyCode.E) && touching == true) || Input.GetKeyDown(KeyCode.O)) // if key condition pressed
             {
-                myStage = Stages.messageSeven; // change message
+                myStage = Stages.messageEight; // change message
                 value.reset = true;
                 puzzle = true; // allow puzzle to appear
             }
         }
 
-        if (collect.collected == true) // if the variable in that script meets a condition
+        if (collect.collected == true || Input.GetKeyDown(KeyCode.P)) // if the variable in that script meets a condition
         {
-            myStage = Stages.messageTen; // change message
+            myStage = Stages.messageEleven; // change message
             goalComplete = true; // set variable to true which will allow barrier to be disabled
         }
-        
+
     }
 }
 

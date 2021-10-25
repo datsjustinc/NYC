@@ -17,6 +17,7 @@ TagManager:
   - SceneChange
   - Dialogue
   - Lever
+  - NPC
   layers:
   - Default
   - TransparentFX

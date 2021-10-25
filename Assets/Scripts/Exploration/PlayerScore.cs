@@ -31,7 +31,6 @@ public class PlayerScore : MonoBehaviour
 
         if (reset == true)
         {
-            Debug.Log("Reseted");
             points = 0;
             displayScore.text = "x" + pt.ToString(); // print text to screen
             reset = false;
