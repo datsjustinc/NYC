@@ -104,7 +104,6 @@ public class DialogueBox : MonoBehaviour
                 myStage = Stages.messageTwelve;
                 break;
             case Stages.messageTwelve:
-                Debug.Log("Stage12");
                 pop.Play(); // play audio source
                 dialogue.text = "";
                 sign = true;
@@ -161,6 +160,11 @@ public class DialogueBox : MonoBehaviour
         {
             myStage = Stages.messageEleven; // change message
             collect.collected = false; // set it back to false so the message does keep reiterating on messageEleven
+        }
+
+        if ((Input.GetKeyDown(KeyCode.P)))
+        {
+            myStage = Stages.messageTwelve; // shortcut cheat
         }
 
     }

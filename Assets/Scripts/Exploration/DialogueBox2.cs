@@ -122,6 +122,11 @@ public class DialogueBox2 : MonoBehaviour
             myStage = Stages.messageSeven; // change message
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            block = true; // activate path to second puzzle
+        }
+
         /*
          if (value.pt == 1) // if the variable in that script meets a condition
         {
