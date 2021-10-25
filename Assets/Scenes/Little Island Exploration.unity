@@ -4245,6 +4245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartScene: Little Island Exploration
+  value: {fileID: 0}
 --- !u!4 &278401915
 Transform:
   m_ObjectHideFlags: 0
