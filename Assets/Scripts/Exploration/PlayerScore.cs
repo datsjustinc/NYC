@@ -17,6 +17,7 @@ public class PlayerScore : MonoBehaviour
         displayScore = GetComponent<TMP_Text>(); // get text component and store in display score
 
         pt = 0; // set player score to 0
+        points = 4;
         reset = false;
     }
 

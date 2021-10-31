@@ -22,6 +22,10 @@ TagManager:
   - Key
   - Enemy
   - Mountain
+  - Spawn2
+  - Spawn3
+  - Spawn4
+  - Dock
   layers:
   - Default
   - TransparentFX

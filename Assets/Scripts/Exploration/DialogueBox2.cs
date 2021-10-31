@@ -26,6 +26,8 @@ public class DialogueBox2 : MonoBehaviour
     AudioSource pop; // create new audio source variable
     //public GameObject npc; // create field variable to store game object
 
+    public string display; // used to create string indication that is displayed to player to show that they need to talk to npc
+
 
 
     //public int counter = 0;
@@ -36,6 +38,7 @@ public class DialogueBox2 : MonoBehaviour
         touching = false;
         puzzle = false;
         block = false;
+        display = "\t\t\t\t\t\t         !";
         pop = GetComponent<AudioSource>(); // get audio source component from object's inspector
         value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
         collect = GameObject.Find("Key").GetComponent<DeactivateKey2>(); // find object that script is in and get the script
@@ -65,26 +68,29 @@ public class DialogueBox2 : MonoBehaviour
             case Stages.messageThree:
                 pop.Play(); // play audio source
                 dialogue.text = "First, climb up there and retrieve the key!";
+                display = "";
                 puzzle = true; // allow puzzle to appear
                 break;
             case Stages.messageFour:
                 pop.Play(); // play audio source
                 dialogue.text = "Thanks, I'll take that.";
+                display = "";
                 myStage = Stages.messageFive;
                 break;
             case Stages.messageFive:
                 pop.Play(); // play audio source
-                dialogue.text = "Alright, if you can get across, you win!";
+                dialogue.text = "Alright, if you can get across and collect all 13 coins, you win!";
                 myStage = Stages.messageSix;
                 break;
             case Stages.messageSix:
                 pop.Play(); // play audio source
-                dialogue.text = "Cya!";
+                dialogue.text = "\t     Cya!";
+                display = "";
                 block = true;
                 break;
              case Stages.messageSeven:
                 pop.Play(); // play audio source
-                dialogue.text = "You win!";
+                dialogue.text = "\tYou win!";
                 break;
         }
 
@@ -111,19 +117,29 @@ public class DialogueBox2 : MonoBehaviour
             EnumChange(); // run method with switch case
         }
 
+        else if (touching == false)
+        {
+            dialogue.text = display; // createa empty dialogue
+        }
+
+
         if (collect.collected == true)
         {
             myStage = Stages.messageFour; // change message
+            display = "\t\t\t\t\t\t         ?";
             collect.collected = false; // set it back to false so the message does keep reiterating on messageEleven
         }
 
-        if (value.pt == 9)
+        if (value.pt == 13)
         {
             myStage = Stages.messageSeven; // change message
+            display = "\t\t\t\t\t\t       !";
         }
 
         if (Input.GetKeyDown(KeyCode.P))
         {
+            myStage = Stages.messageFour; // change message
+            display = "\t\t\t\t\t\t         ?";
             block = true; // activate path to second puzzle
         }
 

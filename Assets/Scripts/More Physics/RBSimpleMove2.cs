@@ -19,6 +19,8 @@ public class RBSimpleMove2 : MonoBehaviour
 
     public TrailRenderer trail; // create field variable for object's sprite renderer component
 
+    public Color alpha; // create field variable for object's sprite renderer color component
+
     bool onBoat; // create variable to detect if player is on the boat object
 
     public bool control; // determine whether player can move or boat can move
@@ -34,6 +36,7 @@ public class RBSimpleMove2 : MonoBehaviour
         onBoat = false; // player is not on boat intialize
         flip = GetComponent<SpriteRenderer>(); // Get sprite renderer component of object
         trail = GetComponent<TrailRenderer>(); // get trail renderer component of object
+        alpha.a = 0.8f; // set color that will be assigned to sprite renderer component of object
         trail.emitting = false; // set property of trail renderer component to false
     }
 
@@ -52,6 +55,7 @@ public class RBSimpleMove2 : MonoBehaviour
             animator.speed = 1.5f; // speed up animation frames when sprinting
             moveSpeed = 3.5f; // player speed increases (sprint)
             trail.emitting = true; // set property of trail renderer component to false
+            //trail.startColor = alpha; 
         }
 
         else
@@ -83,6 +87,7 @@ public class RBSimpleMove2 : MonoBehaviour
         }
 
         animator.SetBool("Jump", true); // trigger object's jump animation
+        //flip.color = alpha; // change player alpha color
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse); // make object jump
         isGrounded = false; // set boolean to false after object leaves ground
     }

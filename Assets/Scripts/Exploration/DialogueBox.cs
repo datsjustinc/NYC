@@ -20,6 +20,10 @@ public class DialogueBox : MonoBehaviour
     AudioSource pop; // create new audio source variable
     //public GameObject npc; // create field variable to store game object
 
+    public string display; // used to create string indication that is displayed to player to show that they need to talk to npc
+
+    
+
 
 
     //public int counter = 0;
@@ -31,6 +35,7 @@ public class DialogueBox : MonoBehaviour
         goalComplete = false;
         teleport = false;
         touching = false;
+        display = "\t\t\t\t\t\t      !";
         dialogue = GetComponent<TMP_Text>();
         value = GameObject.Find("Score").GetComponent<PlayerScore>(); // find object that script is in and get the script
         collect = GameObject.Find("Key").GetComponent<DeactivateKey>(); // find object that script is in and get the script
@@ -80,12 +85,14 @@ public class DialogueBox : MonoBehaviour
                 break;
             case Stages.messageSeven:
                 pop.Play(); // play audio source
-                dialogue.text = "Hint: Run towards a ledge and spam jump.";
+                dialogue.text = "Hint: Sprint towards a ledge and spam jump.";
+                display = "";
                 //myStage = Stages.messageTwo;
                 break;
             case Stages.messageEight:
                 pop.Play(); // play audio source
                 dialogue.text = "I'll take that as payment, thanks!";
+                display = "";
                 myStage = Stages.messageNine;
                 break;
             case Stages.messageNine:
@@ -101,19 +108,21 @@ public class DialogueBox : MonoBehaviour
             case Stages.messageEleven:
                 pop.Play(); // play audio source
                 dialogue.text = "Meet me at the Docks.";
+                display = "";
                 myStage = Stages.messageTwelve;
                 break;
             case Stages.messageTwelve:
                 pop.Play(); // play audio source
-                dialogue.text = "";
                 sign = true;
                 teleport = true;
                 goalComplete = true; // set variable to true which will allow barrier to be disabled
                 transform.position = new Vector3(-20.33f, -2.63f, -2.2319f);
+                display = "\t\t\t\t\t\t      ?";
                 myStage = Stages.messageThirteen;
                 break;
             case Stages.messageThirteen:
                 pop.Play(); // play audio source
+                display = "";
                 dialogue.text = "Use the key on lever.";
                 myStage = Stages.messageFourteen;
                 break;
@@ -135,7 +144,6 @@ public class DialogueBox : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision) // method used to stop dialogue interaction if player is away from npc
     {
         touching = false;
-        dialogue.text = ""; // createa empty dialogue
     }
 
     // Update is called once per frame
@@ -146,9 +154,16 @@ public class DialogueBox : MonoBehaviour
             EnumChange(); // run method with switch case
         }
 
+        else if (touching == false)
+        {
+            dialogue.text = display; // createa empty dialogue
+        }
+
         if (value.pt == 3) // if the variable in that script meets a condition
         {
             myStage = Stages.messageEight; // change message
+            display = "\t\t\t\t\t\t      ?";
+
             if ((Input.GetKeyDown(KeyCode.E) && touching == true)) // if key condition pressed
             {
                 value.reset = true;
@@ -159,12 +174,15 @@ public class DialogueBox : MonoBehaviour
         if (collect.collected == true) // if the variable in that script meets a condition
         {
             myStage = Stages.messageEleven; // change message
+            display = "\t\t\t\t\t\t      !";
             collect.collected = false; // set it back to false so the message does keep reiterating on messageEleven
         }
 
         if ((Input.GetKeyDown(KeyCode.P)))
         {
             myStage = Stages.messageTwelve; // shortcut cheat
+            //dialogue.text = "";
+            display = "\t\t\t\t\t\t      !";
         }
 
     }

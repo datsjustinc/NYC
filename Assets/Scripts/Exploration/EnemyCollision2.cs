@@ -18,6 +18,7 @@ public class EnemyCollision2 : MonoBehaviour
         death = GetComponent<AudioSource>(); // get audio source component from object's inspector
     }  
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)  // collision detector
     {
         if (collision.CompareTag("Player")) // if current object collides with respawn object with specified tag
@@ -27,4 +28,5 @@ public class EnemyCollision2 : MonoBehaviour
         }
         
     }
+    */
 }
