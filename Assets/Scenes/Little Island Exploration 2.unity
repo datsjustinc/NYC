@@ -2148,7 +2148,7 @@ GameObject:
   - component: {fileID: 161675647}
   m_Layer: 0
   m_Name: Dock2
-  m_TagString: Dock
+  m_TagString: Dock2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18326,7 +18326,7 @@ MonoBehaviour:
   spawn2: {fileID: 564556417}
   spawn3: {fileID: 1311817044}
   spawn4: {fileID: 1767532694}
-  collect: {fileID: 0}
+  collect: {fileID: 1324985853}
 --- !u!114 &1825073519
 MonoBehaviour:
   m_ObjectHideFlags: 0

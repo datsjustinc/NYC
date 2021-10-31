@@ -77,7 +77,7 @@ public class Respawn2 : MonoBehaviour
             respawn4 = false;
         }
 
-        if (respawn4 == true && collision.CompareTag("Dock"))
+        if (respawn4 == true && collision.CompareTag("Dock2"))
         {
             death.Play(); // play audio sound for death
             transform.position = new Vector3(spawn4.transform.position.x, spawn4.transform.position.y, spawn4.transform.position.z); // set current object position to new spawn object position

@@ -26,6 +26,7 @@ TagManager:
   - Spawn3
   - Spawn4
   - Dock
+  - Dock2
   layers:
   - Default
   - TransparentFX
