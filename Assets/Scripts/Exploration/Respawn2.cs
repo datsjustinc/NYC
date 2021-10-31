@@ -39,8 +39,9 @@ public class Respawn2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)  // collision detector
     {
-        if (collect.collected == true)
+        if (collision.CompareTag("Key"))
         {
+            Debug.Log("TEst");
             respawn4 = false;
         }
         
